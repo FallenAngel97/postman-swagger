@@ -1,0 +1,16 @@
+{
+  "name": "@decodeapps/postman-swagger",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "bin": {
+    "postman-swagger": "./index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "postman-to-openapi": "^2.2.1",
+    "swagger-ui-express": "^4.4.0",
+    "yamljs": "^0.3.0",
+    "yargs": "13.2"
+  }
+}

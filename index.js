@@ -16,11 +16,11 @@ const options = yargs
 const appPort = process.env.PORT || options.port || 5000;
 
 async function setupApp() {
-  const files = fs.readdirSync(path.join(__dirname, options.d));
+  const files = fs.readdirSync(path.join(process.cwd(), options.d));
   let combinedCollections = [];
 
   for(let i = 0; i < files.length; i++) {
-    const fullPath = path.join(__dirname, `${options.d}/${files[i]}`);
+    const fullPath = path.join(process.cwd(), `${options.d}/${files[i]}`);
     const insides = require(fullPath);
     const defaultTag = insides?.info?.name || 'General';
 

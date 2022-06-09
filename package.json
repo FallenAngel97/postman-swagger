@@ -1,13 +1,27 @@
 {
   "name": "@decodeapps/postman-swagger",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "license": "MIT",
+  "description": "Spins up a Swagger server from the Postman collections",
+  "homepage": "https://github.com/FallenAngel97/postman-swagger",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FallenAngel97/postman-swagger"
+  },
   "bin": {
     "postman-swagger": "./index.js"
   },
+  "keywords": [
+    "postman",
+    "swagger",
+    "documentation",
+    "api",
+    "server"
+  ],
   "dependencies": {
     "express": "^4.18.1",
+    "mime-types": "^2.1.35",
     "postman-to-openapi": "^2.2.1",
     "swagger-ui-express": "^4.4.0",
     "yamljs": "^0.3.0",

@@ -7,6 +7,7 @@ const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const postmanToOpenApi = require('postman-to-openapi');
 const yargs = require("yargs");
+const mime = require('mime-types');
 const options = yargs
   .usage("Usage: -d <directory> -p <port>")
   .option("d", { describe: "Directory path", type: "string", demandOption: true })
@@ -21,11 +22,21 @@ async function setupApp() {
 
   for(let i = 0; i < files.length; i++) {
     const fullPath = path.join(process.cwd(), `${options.d}/${files[i]}`);
+    const fileType = mime.lookup(fullPath);
+    if(fileType !== 'application/json') {
+      console.log(`Skipping ${fullPath}, because not a JSON file...`);
+      continue;
+    }
     const insides = require(fullPath);
     const defaultTag = insides?.info?.name || 'General';
 
-    const postmanResult = await postmanToOpenApi(fullPath, null, { defaultTag });
-    combinedCollections.push(YAML.parse(postmanResult));
+    try {
+      const postmanResult = await postmanToOpenApi(fullPath, null, { defaultTag });
+      combinedCollections.push(YAML.parse(postmanResult));
+    } catch(ex) {
+      console.log(`Not in the postman format, skipping ${fullPath}`);
+      continue;
+    }
   }
 
   const parsedCollections = combinedCollections.reduce((acc, collection) => ({
